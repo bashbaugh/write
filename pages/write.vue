@@ -32,9 +32,9 @@
       element-loading-background="rgba(0, 0, 0, 0.7)"
     >
       <el-input
+        ref="textbox"
         v-model="text"
         type="textarea"
-        ref="textbox"
         :rows="14"
         :min-length="50"
         :maxlength="maxWritingLength"
@@ -73,8 +73,9 @@ export default {
     startWriting: function () {
       this.dialogVisible = false
       this.disableWritingText = 'Please wait...'
-      // Connect to API here.
-      
+      axios.get('/api/beginwriting')
+      .then(response => (this.info = response))
+
       this.disableWriting = false
       this.$refs.textbox.$el.children[0].focus()
     }
